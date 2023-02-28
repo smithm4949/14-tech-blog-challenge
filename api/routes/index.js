@@ -1,11 +1,11 @@
 // Create the different routes under the /api route
 const router = require('express').Router();
-const ownerRoutes = require('./owner-routes');
-const dogRoutes = require('./dog-routes');
-const eventRoutes = require('./event-routes');
+const userRoutes = require('./user-routes');
+const postRoutes = require('./post-routes');
+const commentRoutes = require('./comment-routes');
 
-router.use('/owners', ownerRoutes);
-router.use('/dogs', dogRoutes);
-router.use('/events', eventRoutes);
+router.use('/users', userRoutes);
+router.use('/posts', postRoutes);
+router.use('/comments', commentRoutes);
 
 module.exports = router;
