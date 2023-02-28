@@ -45,7 +45,6 @@ exports.update = function (req, res) {
 }
 
 exports.delete = function (req, res) {
-  // delete a owner by its `id` value
   return User.destroy({
     where: {
       id: req.params.id
