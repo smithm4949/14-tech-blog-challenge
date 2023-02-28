@@ -6,7 +6,7 @@ This weeks challenge is to create a tech blog site with authentication, users, p
 
 ## Installation and Deployment
 
-This application is deployed here: [SQL Employee Tracker demo](https://watch.screencastify.com/v/1satT6t6o7qRrUnLUlm4)
+This application is not deployed. All api routes are working but I did not have time to complete the frontend.
 
 ## Authors and acknowledgment
 
