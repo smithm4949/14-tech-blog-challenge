@@ -14,6 +14,13 @@ exports.renderAll = function (req, res) {
   .catch(err => res.status(400).json(err))
 }
 
+exports.renderOwned = function (req, res) {
+  return Post
+  .findAll({where: { id:req.session.userId }})
+  .then(posts => res.status(200).render('dashboard', posts))
+  .catch(err => res.status(400).json(err))
+}
+
 exports.getOne = function (req, res) {
   return Post
   .findOne({
@@ -30,7 +37,10 @@ exports.renderOne = function (req, res) {
     where: { id: req.params.id }
   }
   )
-  .then(post => res.status(200).render('postCard', post))
+  .then(post => {
+    post.userId = req.session.userId;
+    res.status(200).render('postCard', post)
+  })
   .catch(err => res.status(400).json(err))
 }
 
