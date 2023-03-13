@@ -7,6 +7,13 @@ exports.getAll = function (req, res) {
   .catch(err => res.status(400).json(err))
 }
 
+exports.renderAll = function (req, res) {
+  return Post
+  .findAll()
+  .then(posts => res.status(200).render('homepage', posts))
+  .catch(err => res.status(400).json(err))
+}
+
 exports.getOne = function (req, res) {
   return Post
   .findOne({
@@ -16,6 +23,17 @@ exports.getOne = function (req, res) {
   .then(posts => res.status(200).json(posts))
   .catch(err => res.status(400).json(err))
 }
+
+exports.renderOne = function (req, res) {
+  return Post
+  .findOne({
+    where: { id: req.params.id }
+  }
+  )
+  .then(post => res.status(200).render('postCard', post))
+  .catch(err => res.status(400).json(err))
+}
+
 
 exports.create = function (req, res) {
   return Post

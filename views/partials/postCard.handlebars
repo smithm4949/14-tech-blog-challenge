@@ -1,0 +1,17 @@
+<a href={{postLink}}>
+  <div class="post-wrapper">
+    <h2>{{title}}</h2>
+    <h4>Posted by {{user.username}} on {{format_date post.createdAt}}</h4>
+    <p>{{contents}}</p>
+    <div class="post-comments">
+      <p>
+        {{> comments}}
+      </p>
+    </div>
+  </div>
+  {{#if logged_in}}
+    {{> addComment}}
+  {{/if}}
+
+</a>
+  
