@@ -1,8 +1,7 @@
 const commentFormHandler = async (event) => {
   event.preventDefault();
 
-  // Obtain value from the login form
-  const commentContents = document.querySelector('#comment-contents').value.trim();
+    const commentContents = document.querySelector('#comment-contents').value.trim();
   const postId = document.querySelector('#postId').value.trim();
 
   if (commentContents) {
@@ -19,3 +18,5 @@ const commentFormHandler = async (event) => {
       }
   }
 };
+
+document.querySelector('#submit-comment-button').addEventListener('click', commentFormHandler);
