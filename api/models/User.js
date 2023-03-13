@@ -36,7 +36,8 @@ User.init(
         return newUserData;
       }
     },
-    sequelize
+    sequelize,
+    modelName: 'user'
   }
 );
 

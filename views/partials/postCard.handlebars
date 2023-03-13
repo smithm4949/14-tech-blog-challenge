@@ -1,17 +1,14 @@
-<a href={{postLink}}>
-  <div class="post-wrapper">
-    <h2>{{title}}</h2>
-    <h4>Posted by {{user.username}} on {{format_date post.createdAt}}</h4>
-    <p>{{contents}}</p>
-    <div class="post-comments">
-      <p>
-        {{> comments}}
-      </p>
-    </div>
+<div class="post-wrapper card-body">
+  <h2 class="card-title">{{title}}</h2>
+  <h4>Posted by {{user.username}} on {{format_date createdAt}}</h4>
+  <p class="card-text">{{contents}}</p>
+  <div class="post-comments">
+    {{#if comments.length}}
+      {{> comments}}
+    {{/if}}
   </div>
-  {{#if logged_in}}
-    {{> addComment}}
-  {{/if}}
-
-</a>
+</div>
+{{#if loggedIn}}
+  {{> addComment}}
+{{/if}}
   

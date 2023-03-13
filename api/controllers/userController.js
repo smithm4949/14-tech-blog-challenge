@@ -17,6 +17,16 @@ exports.getOne = function (req, res) {
   .catch(err => res.status(400).json(err))
 }
 
+exports.renderProfile = function (req, res) {
+  return User
+  .findOne({
+    where: { id: req.session.userid }
+  }
+  )
+  .then(user => res.status(200).render('profile', user))
+  .catch(err => res.status(400).json(err))
+}
+
 exports.create = function (req, res) {
   return User
   .create(req.body)
@@ -78,7 +88,7 @@ exports.login = function (req, res) {
 }
 
 exports.logout = function (req, res) {
-  if (req.session.logged_in) {
+  if (req.session.loggedIn) {
     req.session.destroy(() => {
       res.status(204).end();
     });

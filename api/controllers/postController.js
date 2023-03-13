@@ -1,4 +1,4 @@
-const Post = require('../models/Post');
+const { User, Post, Comment } = require('../models');
 
 exports.getAll = function (req, res) {
   return Post
@@ -9,15 +9,40 @@ exports.getAll = function (req, res) {
 
 exports.renderAll = function (req, res) {
   return Post
-  .findAll()
-  .then(posts => res.status(200).render('homepage', posts))
+  .findAll({ include: {
+    model: User,
+    attributes: ['username']
+  }})
+  .then(posts => {
+    const plainPosts = posts.map(post => {
+      let plainPost = post.get({ plain: true });
+      plainPost.postLink = `/posts/${plainPost.id}`;
+      return plainPost;
+    });
+    console.log({posts: plainPosts});
+    res.status(200).render('homepage', {posts: plainPosts, loggedIn: req.session.loggedIn, userId: req.session.userId})
+  })
   .catch(err => res.status(400).json(err))
 }
 
 exports.renderOwned = function (req, res) {
   return Post
-  .findAll({where: { id:req.session.userId }})
-  .then(posts => res.status(200).render('dashboard', posts))
+  .findAll({
+    where: { userId: req.session.userId },
+    include: {
+      model: User,
+      attributes: ['username']
+    }
+  })
+  .then(posts => {
+    const plainPosts = posts.map(post => {
+      let plainPost = post.get({ plain: true });
+      plainPost.postLink = `/posts/${plainPost.id}`;
+      return plainPost;
+    });
+    console.log({posts: plainPosts});
+    res.status(200).render('dashboard', {posts: plainPosts, loggedIn: req.session.loggedIn, userId: req.session.userId});
+  })
   .catch(err => res.status(400).json(err))
 }
 
@@ -34,12 +59,21 @@ exports.getOne = function (req, res) {
 exports.renderOne = function (req, res) {
   return Post
   .findOne({
-    where: { id: req.params.id }
-  }
-  )
+    where: { id: req.params.id },
+    include: {
+      model: Comment,
+      include: {
+        model: User,
+        attributes: ['username']
+      }
+    }
+  })
   .then(post => {
-    post.userId = req.session.userId;
-    res.status(200).render('postCard', post)
+    const plainPost = post.get({plain: true});
+    plainPost.userId = req.session.userId;
+    plainPost.loggedIn = req.session.loggedIn;
+    console.log({...plainPost});
+    res.status(200).render('post', {...plainPost, loggedIn: req.session.loggedIn, userId: req.session.userId});
   })
   .catch(err => res.status(400).json(err))
 }

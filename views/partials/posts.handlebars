@@ -1,5 +1,9 @@
 <div class="posts-wrapper">
   {{#each posts as |post|}}
+  <a href={{postLink}}>
+    <div class="card">
     {{> postCard}}
+    </div>
+  </a>
   {{/each}}
 </div>

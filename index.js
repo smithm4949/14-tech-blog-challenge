@@ -1,8 +1,10 @@
 const express = require('express');
 const routes = require('./api/routes');
+const homeRoutes = require('./api/routes/home-routes');
 const sequelize = require('./config/connection');
 const exphbs = require('express-handlebars');
-const hbs = exphbs.create({});
+const helpers = require('./utils/helpers');
+const hbs = exphbs.create({ helpers });
 const path = require('path');
 const session = require('express-session');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
@@ -29,6 +31,7 @@ app.use(session(sess))
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.use('/', homeRoutes)
 app.use('/api', routes);
 
 app.engine('handlebars', hbs.engine);
