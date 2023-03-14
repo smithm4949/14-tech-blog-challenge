@@ -6,7 +6,7 @@ This weeks challenge is to create a tech blog site with authentication, users, p
 
 ## Installation and Deployment
 
-This application is not deployed. All api routes are working but I did not have time to complete the frontend.
+This application is deployed and can be [viewed live here](https://warm-taiga-81787.herokuapp.com/).
 
 ## Authors and acknowledgment
 
