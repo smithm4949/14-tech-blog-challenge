@@ -1,4 +1,4 @@
-const Post = require('../api/models/Post');
+const { Post } = require('../api/models');
 
 const data = [
     {
